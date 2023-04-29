@@ -1,60 +1,61 @@
-﻿Console.Write("> Enter your text: ");
-var input = Console.ReadLine().Split(" ");
-var punctuation = new char[] {',', '.', '?', '!', ';', ':', '"'};
-var words = new List<string>();
-
-foreach (var word in input)
+﻿while (true)
 {
-    words.Add(new string(word.Where(c => !punctuation.Contains(c)).ToArray()));
-    // .ToString() одразу не працює, тому спочатку в Array, а потім формуємо string()
-    //Console.WriteLine(word.Where(c => !punctuation.Contains(c)).ToArray());
-}
-
-
-List<string> spellChecker = new List<string>();
-foreach (var line in File.ReadAllLines("words_list.txt"))
-{
-    spellChecker.Add(line.ToLower());
-}
-List<string> wrongWords = new List<string>();
-foreach (var word in words)
-{
-    if (!spellChecker.Contains(word.ToLower())) 
-    {
-        wrongWords.Add(word);
-    }
-}
-
-var distances = new Dictionary<string, int>();
-
-if (wrongWords.Count != 0)
-{
-    Console.Write("< Looks like you don't know how to type: ");
-    Console.WriteLine(string.Join(", ", wrongWords));
+    Console.Write("\n> Enter your text: ");
+    var input = Console.ReadLine().Split(" ");
+    var punctuation = new char[] {',', '.', '?', '!', ';', ':', '"'};
+    var words = new List<string>();
     
-    foreach (var wrong in wrongWords)
+    foreach (var word in input)
     {
-        foreach (var word in File.ReadAllLines("words_list.txt"))
+        words.Add(new string(word.Where(c => !punctuation.Contains(c)).ToArray()));
+        // .ToString() одразу не працює, тому спочатку в Array, а потім формуємо string()
+        //Console.WriteLine(word.Where(c => !punctuation.Contains(c)).ToArray());
+    }
+    
+    List<string> spellChecker = new List<string>();
+    foreach (var line in File.ReadAllLines("words_list.txt"))
+    {
+        spellChecker.Add(line.ToLower());
+    }
+    List<string> wrongWords = new List<string>();
+    foreach (var word in words)
+    {
+        if (!spellChecker.Contains(word.ToLower())) 
         {
-            distances[word] = LevenshteinDistance(wrong, word);
+            wrongWords.Add(word);
         }
-
-        var sortedKeyValuePairs = distances.OrderBy(x => x.Value).Take(5).ToList();
-        var suggestions = new List<string>();
-
-        foreach (var pair in sortedKeyValuePairs) suggestions.Add(pair.Key);
-
-        Console.Write($"< possible suggestions for {wrong}: ");
-        Console.WriteLine(string.Join(", ", suggestions));
+    }
+    
+    if (wrongWords.Count != 0)
+    {
+        Console.Write("< Looks like you don't know how to type: ");
+        Console.WriteLine(string.Join(", ", wrongWords));
+        
+        var distances = new Dictionary<string, int>();
+        
+        foreach (var wrong in wrongWords)
+        {
+            foreach (var word in File.ReadAllLines("words_list.txt"))
+            {
+                distances[word] = DamerauLevenshteinDistance(wrong, word);
+            }
+    
+            var sortedKeyValuePairs = distances.OrderBy(x => x.Value).Take(5).ToList();
+            var suggestions = new List<string>();
+    
+            foreach (var pair in sortedKeyValuePairs) suggestions.Add(pair.Key);
+    
+            Console.Write($"< Possible suggestions for {wrong}: ");
+            Console.WriteLine(string.Join(", ", suggestions));
+        }
+    }
+    else
+    {
+        Console.WriteLine("< At least you have a dictionary at home. Congrats.");
     }
 }
-else
-{
-    Console.WriteLine("< At least you have a dictionary at home. Congrats.");
-}
 
-
-int LevenshteinDistance(string word1, string word2)
+int DamerauLevenshteinDistance(string word1, string word2)
 {
     var w1 = word1.Length;
     var w2 = word2.Length;
@@ -81,6 +82,11 @@ int LevenshteinDistance(string word1, string word2)
             matrix[i, j] = Math.Min(
                 Math.Min(matrix[i - 1, j] + 1, matrix[i, j - 1] + 1),
                 matrix[i - 1, j - 1] + cost);
+            
+            if (i > 1 && j > 1 && word1[i - 1] == word2[j - 2] && word1[i - 2] == word2[j - 1])
+            {
+                matrix[i, j] = Math.Min(matrix[i, j], matrix[i - 2, j - 2] + cost);
+            }
         }
     }
     return matrix[w1 , w2];

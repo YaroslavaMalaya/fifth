@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sofma\\fifth\\lab5\\lab5.csproj": {}
+    "/Users/Yarrochka/Мої файли/Study/IT 3/fifth/lab5/lab5.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sofma\\fifth\\lab5\\lab5.csproj": {
+    "/Users/Yarrochka/Мої файли/Study/IT 3/fifth/lab5/lab5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sofma\\fifth\\lab5\\lab5.csproj",
+        "projectUniqueName": "/Users/Yarrochka/Мої файли/Study/IT 3/fifth/lab5/lab5.csproj",
         "projectName": "lab5",
-        "projectPath": "C:\\Users\\sofma\\fifth\\lab5\\lab5.csproj",
-        "packagesPath": "C:\\Users\\sofma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sofma\\fifth\\lab5\\obj\\",
+        "projectPath": "/Users/Yarrochka/Мої файли/Study/IT 3/fifth/lab5/lab5.csproj",
+        "packagesPath": "/Users/Yarrochka/.nuget/packages/",
+        "outputPath": "/Users/Yarrochka/Мої файли/Study/IT 3/fifth/lab5/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sofma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/Yarrochka/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Users/Yarrochka/.dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }
