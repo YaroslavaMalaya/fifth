@@ -104,3 +104,41 @@ else
     Console.WriteLine($"{t} is not a substring of {s}");
 }
 */
+
+/* additional 3
+int[] prices = { 1, 7, 5, 3, 6, 4 };
+int[] prices2 = { 1, 1, 1, 1, 1 };
+void MaxProfit(int[] pr) {
+    var minPrice = int.MaxValue; // 2147483647 - the largest possible value of int32
+    var maxProfit = 0;
+    var sell = 0;
+    var buy = 0;
+    
+    for (var i = 0; i < pr.Length; i++) {
+        if (pr[i] < minPrice) {
+            minPrice = pr[i];
+            buy = i;
+            // if price on the ith day is less then the minimum, it becomes the minimum
+            // and we mark the day we bought the share
+        } else if (pr[i] - minPrice > maxProfit) {
+            maxProfit = pr[i] - minPrice;
+            sell = i;
+            // otherwise if price on the ith day is greater, then if this price - minimum is greater
+            // than the maximum, it becomes the maximum
+            // + we mark the day we sold the share
+        }
+    }
+
+    if (maxProfit != 0)
+    {
+        Console.WriteLine(maxProfit);
+        Console.WriteLine($"you should buy on the {buy + 1}th day and sell on the {sell + 1}th day");
+    }
+
+    else Console.WriteLine("you didn't gain any profit");
+    
+}
+
+MaxProfit(prices);
+MaxProfit(prices2);
+*/
