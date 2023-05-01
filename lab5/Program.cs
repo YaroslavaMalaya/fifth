@@ -91,3 +91,16 @@ int DamerauLevenshteinDistance(string word1, string word2)
     }
     return matrix[w1 , w2];
 }
+
+/* additional 1
+string s = "abcdef";
+string t = "a";
+if (LevenshteinDistance(t, s) <= s.Length - t.Length)
+{
+    Console.WriteLine($"{t} is a substring of {s}");
+}
+else
+{
+    Console.WriteLine($"{t} is not a substring of {s}");
+}
+*/
