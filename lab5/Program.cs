@@ -28,9 +28,7 @@
     
     if (wrongWords.Count != 0)
     {
-        Console.Write("< Looks like you don't know how to type: ");
-        Console.WriteLine(string.Join(", ", wrongWords));
-        
+        Console.WriteLine($"< Looks like you don't know how to type: {string.Join(", ", wrongWords)}");
         var distances = new Dictionary<string, int>();
         
         foreach (var wrong in wrongWords)
@@ -45,8 +43,7 @@
     
             foreach (var pair in sortedKeyValuePairs) suggestions.Add(pair.Key);
     
-            Console.Write($"< Possible suggestions for {wrong}: ");
-            Console.WriteLine(string.Join(", ", suggestions));
+            Console.WriteLine($"< Possible suggestions for {wrong}: {string.Join(", ", suggestions)}");
         }
     }
     else
@@ -93,34 +90,68 @@ int DamerauLevenshteinDistance(string word1, string word2)
 }
 
 /* additional 1
-string s = "abcdef";
-string t = "a";
-if (LevenshteinDistance(t, s) <= s.Length - t.Length)
+    string s = "abcdef";
+    string t = "acf";
+    if (DamerauLevenshteinDistance(t, s) <= s.Length - t.Length)
+    {
+        Console.WriteLine($"{t} is a substring of {s}");
+    }
+    else
+    {
+        Console.WriteLine($"{t} is not a substring of {s}");
+    }
+*/
+
+/*
+//additional 2
+Console.Write("\n> Enter the number of pairs brackets: ");
+int n = int.Parse(Console.ReadLine());
+List<string> brackets = new List<string>();
+BracketGenerationRecursive(brackets, n, "", 0, 0);
+Console.WriteLine($"< {String.Join(", ", brackets)}");
+
+void BracketGenerationRecursive(List<string> brackets, int n, string group, int open, int close) 
+    // open = number of open brackets 
+    // close = number of close brackets 
 {
-    Console.WriteLine($"{t} is a substring of {s}");
-}
-else
-{
-    Console.WriteLine($"{t} is not a substring of {s}");
+    if (open < n)
+    {
+        BracketGenerationRecursive(brackets, n, group + "(", open + 1, close);
+    }
+
+    if (close < open) 
+    {
+        BracketGenerationRecursive(brackets, n, group + ")", open, close + 1);
+    }
+    
+    if (group.Length == n * 2) // n * 2 = maximum number of brackets in one group
+    {
+        brackets.Add(group);
+    }
 }
 */
 
 /* additional 3
 int[] prices = { 1, 7, 5, 3, 6, 4 };
 int[] prices2 = { 1, 1, 1, 1, 1 };
-void MaxProfit(int[] pr) {
+void MaxProfit(int[] pr) 
+{
     var minPrice = int.MaxValue; // 2147483647 - the largest possible value of int32
     var maxProfit = 0;
     var sell = 0;
     var buy = 0;
     
-    for (var i = 0; i < pr.Length; i++) {
-        if (pr[i] < minPrice) {
+    for (var i = 0; i < pr.Length; i++) 
+    {
+        if (pr[i] < minPrice) 
+        {
             minPrice = pr[i];
             buy = i;
             // if price on the ith day is less then the minimum, it becomes the minimum
             // and we mark the day we bought the share
-        } else if (pr[i] - minPrice > maxProfit) {
+        } 
+        else if (pr[i] - minPrice > maxProfit) 
+        {
             maxProfit = pr[i] - minPrice;
             sell = i;
             // otherwise if price on the ith day is greater, then if this price - minimum is greater
@@ -132,11 +163,9 @@ void MaxProfit(int[] pr) {
     if (maxProfit != 0)
     {
         Console.WriteLine(maxProfit);
-        Console.WriteLine($"you should buy on the {buy + 1}th day and sell on the {sell + 1}th day");
+        Console.WriteLine($"You should buy on the {buy + 1}th day and sell on the {sell + 1}th day.\n");
     }
-
-    else Console.WriteLine("you didn't gain any profit");
-    
+    else Console.WriteLine("You didn't gain any profit.\n");
 }
 
 MaxProfit(prices);
